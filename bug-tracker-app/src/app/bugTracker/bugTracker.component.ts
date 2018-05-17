@@ -9,9 +9,14 @@ import { Bug } from './models/Bug';
 })
 export class BugTrackerComponent{
 	bugs : Bug[] = [];
+	bugSortBy : string = 'name';
+	bugSortDescending : boolean = false;
 
 	constructor(private bugOperations : BugOperationsService){
-
+		this.bugs.push(this.bugOperations.createNew('Server communication failure'));
+		this.bugs.push(this.bugOperations.createNew('Data integrity checks failed'));
+		this.bugs.push(this.bugOperations.createNew('User actions not recognized'));
+		this.bugs.push(this.bugOperations.createNew('Application not responding'));
 	}
 	onAddNewClick(bugName){
 		let newBug : Bug = this.bugOperations.createNew(bugName);
