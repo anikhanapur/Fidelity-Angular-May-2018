@@ -19,14 +19,21 @@
  </section>
  <section class="list">
  	<ol>
- 		<li>
- 			<span class="bugname">[This is bug - 1]</span>
+ 		<li *ngFor="let bug of bugs">
+ 			<span class="bugname" (click)="onBugNameClick(bug)">{{bug.name}}</span>
  			<div class="datetime">[Created At]</div>
- 		</li>
- 		<li>
- 			<span class="bugname closed">[This is bug - 2]</span>
- 			<div class="datetime">[Created At]</div>
+ 			<div>[ {{bug.isClosed}} ]</div>
  		</li>
  	</ol>
  	<input type="button" value="Remove Closed">
  </section>
+
+
+
+
+
+
+
+
+
+
