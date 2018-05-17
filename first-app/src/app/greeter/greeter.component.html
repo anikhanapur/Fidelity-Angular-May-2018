@@ -1,0 +1,7 @@
+<h1>
+    {{message}}
+  </h1>
+  <label for="">User Name :</label>
+  <input type="text" #txtUserName>
+  <input type="button" value="Greet" (click)="onGreetClick(txtUserName.value)"/>
+  <input type="button" value="Clear" (click)="onClearClick()"/>
