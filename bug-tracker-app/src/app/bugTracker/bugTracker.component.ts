@@ -22,8 +22,12 @@ export class BugTrackerComponent{
 	}
 	
 	onRemoveClosedClick(){
-		this.bugs = this.bugs.filter(function(bug){
+		/*this.bugs = this.bugs.filter(function(bug){
 			return !bug.isClosed;
-		});
+		});*/
+
+		this.bugs = this.bugs.filter(bug => !bug.isClosed);
 	}
+
+
 }
