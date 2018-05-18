@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { UtilsModule } from './utils/utils.module';
 
 import { AppComponent } from './app.component';
+
 import { BugTrackerComponent } from './bugTracker/bugTracker.component';
 import { BugStatsComponent } from './bugTracker/views/bugStats.component';
 import { BugEditComponent } from './bugTracker/views/bugEdit.component';
