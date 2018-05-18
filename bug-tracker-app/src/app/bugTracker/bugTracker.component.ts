@@ -12,17 +12,15 @@ export class BugTrackerComponent{
 	bugSortBy : string = 'name';
 	bugSortDescending : boolean = false;
 
-	newBugName : string = '';
+	
 
 	constructor(private bugOperations : BugOperationsService){
 		this.bugs = this.bugOperations.getAll();
 	}
-	onAddNewClick(){
-		let newBug : Bug = this.bugOperations.createNew(this.newBugName);
-		//this.bugs.push(newBug);
+	
+	onNewBugCreation(newBug : Bug){
 		this.bugs = [...this.bugs, newBug];
-		this.newBugName = '';
-	}
+	}	
 
 	onBugNameClick(bugToToggle){
 		//bugToToggle.isClosed = !bugToToggle.isClosed;
