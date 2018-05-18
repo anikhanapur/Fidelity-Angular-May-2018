@@ -27,9 +27,16 @@ export class BugTrackerComponent{
 		this.newBugName = '';
 	}
 
-	onBugNameClick(bug){
-		//bug.isClosed = !bug.isClosed;
-		this.bugOperations.toggle(bug);
+	onBugNameClick(bugToToggle){
+		//bugToToggle.isClosed = !bugToToggle.isClosed;
+		let toggledBug = this.bugOperations.toggle(bugToToggle);
+		this.bugs = this.bugs.map(function(bug){
+			if (bug === bugToToggle){
+				return toggledBug;
+			} else {
+				return bug;
+			}
+		});
 	}
 	
 	onRemoveClosedClick(){
@@ -42,9 +49,7 @@ export class BugTrackerComponent{
 
 	getClosedCount(){
 		//console.log('getClosedCount triggered');
-		return this.bugs.reduce(function(prevResult, bug){
-			return bug.isClosed ? ++prevResult : prevResult;
-		}, 0);
+		
 	}
 
 
