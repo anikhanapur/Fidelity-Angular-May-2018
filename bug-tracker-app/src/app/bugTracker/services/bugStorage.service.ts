@@ -6,10 +6,16 @@ export class BugStorageService{
 
 	addNew(bugData : Bug) : Bug {
 		let newBug = {...bugData, id : ++this.currentBugId};
-		this.storage.setItem(newBug.id.toString(), JSON.stringify(newBug))
-		return newBug;
+		return this.save(newBug);
 	}
 
+	save(bug : Bug) : Bug{
+		this.storage.setItem(bug.id.toString(), JSON.stringify(bug));
+		return bug;
+	}
+	remove(bug : Bug) : void{
+		this.storage.removeItem(bug.id.toString());
+	}
 	getAll() : Bug[]{
 		let result = [];
 		for(let index = 0, count = this.storage.length; index < count; index++){
