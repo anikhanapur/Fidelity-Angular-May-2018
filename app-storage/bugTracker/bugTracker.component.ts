@@ -1,28 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BugOperationsService } from './services/bugOperations.service';
 
 import { Bug } from './models/Bug';
-
 
 @Component({
 	selector : 'app-bug-tracker',
 	templateUrl : 'bugTracker.component.html'
 })
-export class BugTrackerComponent implements OnInit{
+export class BugTrackerComponent{
 	bugs : Bug[] = [];
 	bugSortBy : string = 'name';
 	bugSortDescending : boolean = false;
 
-	ngOnInit(){
-		this.loadBugs();
-	}
+	
 
-	loadBugs(){
-		this.bugOperations.getAll()
-			.subscribe(bugs => this.bugs = bugs);
-	}
 	constructor(private bugOperations : BugOperationsService){
-		
+		this.bugs = this.bugOperations.getAll();
 	}
 	
 	onNewBugCreation(newBug : Bug){
@@ -30,12 +23,16 @@ export class BugTrackerComponent implements OnInit{
 	}	
 
 	onBugNameClick(bugToToggle){
-		
-		this.bugOperations
-			.toggle(bugToToggle)
-			.subscribe(toggledBug => 
-				this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug));
-		
+		//bugToToggle.isClosed = !bugToToggle.isClosed;
+		let toggledBug = this.bugOperations.toggle(bugToToggle);
+		/*this.bugs = this.bugs.map(function(bug){
+			if (bug === bugToToggle){
+				return toggledBug;
+			} else {
+				return bug;
+			}
+		});*/
+		this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug);
 	}
 	
 	onRemoveClosedClick(){
@@ -44,8 +41,8 @@ export class BugTrackerComponent implements OnInit{
 		});*/
 		this.bugs
 			.filter(bug => bug.isClosed)
-			.forEach(closedBug => this.bugOperations.remove(closedBug).subscribe(() => {}));
-		this.loadBugs();
+			.forEach(closedBug => this.bugOperations.remove(closedBug));
+		this.bugs = this.bugOperations.getAll();
 	}
 
 	getClosedCount(){
