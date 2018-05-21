@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BugOperationsService } from './services/bugOperations.service';
 
 import { Bug } from './models/Bug';
+import { Observable } from 'rxjs';
+import 'rxjs/add/observable/forkJoin';
 
+
+window['Observable'] = Observable;
 
 @Component({
 	selector : 'app-bug-tracker',
@@ -42,9 +46,10 @@ export class BugTrackerComponent implements OnInit{
 		/*this.bugs = this.bugs.filter(function(bug){
 			return !bug.isClosed;
 		});*/
-		this.bugs
+		let responses = this.bugs
 			.filter(bug => bug.isClosed)
-			.forEach(closedBug => this.bugOperations.remove(closedBug).subscribe(() => {}));
+			.map(closedBug => this.bugOperations.remove(closedBug));
+		Observable
 		this.loadBugs();
 	}
 
